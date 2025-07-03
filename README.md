@@ -15,7 +15,7 @@ Mealy-Sequence-Detector/
 │   └── waveform.vcd                # GTKWave simulation output (generated)
 ├── docs/
 │   └── state_diagram.txt           # Placeholder for FSM diagram
-├── README.md                       # You're reading it!
+├── README.md                       
 ```
 
 ## Features
