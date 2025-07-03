@@ -8,13 +8,13 @@ A 5-state Mealy finite state machine (FSM) implemented in Verilog to detect the 
 ```
 Mealy-Sequence-Detector/
 ├── src/
-│   └── sequence_detector.v         # FSM Verilog implementation
+│   └── sequenceDetector.v         # FSM Verilog implementation
 ├── test/
-│   └── sequence_detector_tb.v      # Testbench for simulation
+│   └── sequenceDetector_tb.v      # Testbench for simulation
 ├── waves/
 │   └── waveform.vcd                # GTKWave simulation output (generated)
 ├── docs/
-│   └── state_diagram.txt           # Placeholder for FSM diagram
+│   └── stateDiagram.txt           # Placeholder for FSM diagram
 ├── README.md                       
 ```
 
