@@ -26,7 +26,7 @@ Mealy-Sequence-Detector/
 
 ## How to Run (using Icarus Verilog)
 ```bash
-iverilog -o testbench test/sequence_detector_tb.v src/sequence_detector.v
+iverilog -o testbench test/sequenceDetector_tb.v src/sequenceDetector.v
 vvp testbench
 ```
 Then open the generated waveform:
