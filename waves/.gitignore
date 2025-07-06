@@ -1,0 +1,5 @@
+# Ignore simulation outputs
+
+*.vvp
+waves/*.vcd
+waves/*.gtkw
