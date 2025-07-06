@@ -1,37 +1,47 @@
 module sequenceDetector (
-    input logic clk,
-    input logic reset,
-    input logic inBit,
-    output logic detected
+    input clk,
+    input reset,
+    input din,
+    output reg detected
 );
 
-    typedef enum logic [2:0] {
-        s0, s1, s2, s3, s4
-    } state_t;
+    // State encoding
+    parameter S0 = 3'b000;
+    parameter S1 = 3'b001;
+    parameter S2 = 3'b010;
+    parameter S3 = 3'b011;
+    parameter S4 = 3'b100;
+    parameter S5 = 3'b101;
 
-    state_t currentState, nextState;
+    reg [2:0] currentState, nextState;
 
-    always_comb begin
-        nextState = currentState;
-        detected = 0;
+    // State transition logic
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            currentState <= S0;
+        else
+            currentState <= nextState;
+    end
 
+    // Next state logic
+    always @(*) begin
         case (currentState)
-            s0: nextState = (inBit) ? s1 : s0;
-            s1: nextState = (inBit) ? s1 : s2;
-            s2: nextState = (inBit) ? s3 : s0;
-            s3: nextState = (inBit) ? s1 : s4;
-            s4: begin
-                nextState = (inBit) ? s1 : s0;
-                detected = (inBit == 0) ? 1 : 0;
-            end
+            S0: nextState = din ? S1 : S0;
+            S1: nextState = din ? S1 : S2;
+            S2: nextState = din ? S1 : S3;
+            S3: nextState = din ? S4 : S0;
+            S4: nextState = din ? S1 : S5;
+            S5: nextState = din ? S1 : S3; // Allow overlaps
+            default: nextState = S0;
         endcase
     end
 
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset)
-            currentState <= s0;
+    // Output logic
+    always @(*) begin
+        if (currentState == S5)
+            detected = 1;
         else
-            currentState <= nextState;
+            detected = 0;
     end
 
 endmodule
