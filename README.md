@@ -1,12 +1,12 @@
-# Mealy Sequence Detector (10010)
+# Moore Sequence Detector (10010)
 
-A 5-state Mealy finite state machine (FSM) implemented in Verilog to detect the binary sequence `10010` in a serial input stream. Supports detection of **overlapping sequences** as well
+A 5-state Moore finite state machine (FSM) implemented in Verilog to detect the binary sequence `10010` in a serial input stream. Supports detection of **overlapping sequences** as well
 
 ---
 
 ## Project Structure
 ```
-Mealy-Sequence-Detector/
+Moore-Sequence-Detector/
 ├── src/
 │   └── sequenceDetector.v         # FSM Verilog implementation
 ├── test/
@@ -19,7 +19,7 @@ Mealy-Sequence-Detector/
 ```
 
 ## Features
-- Designed using Mealy architecture
+- Designed using Moore architecture
 - Detects overlapping sequences
 - Modular code: separate testbench and FSM
 - Outputs waveform dump for simulation tools like GTKWave
