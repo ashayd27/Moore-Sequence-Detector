@@ -1,4 +1,4 @@
-# Moore Sequence Detector (1010) State Transition Table
+# Moore Sequence Detector (10010) State Transition Table
 
 | Current State | Binary | Input | Next State | Next Binary | Output |
 |---------------|--------|-------|------------|-------------|--------|
@@ -6,27 +6,29 @@
 | S0 (Reset)    | 000    | 1     | S1         | 001         | 0      |
 | S1            | 001    | 0     | S2         | 010         | 0      |
 | S1            | 001    | 1     | S1         | 001         | 0      |
-| S2            | 010    | 0     | S0         | 000         | 0      |
-| S2            | 010    | 1     | S3         | 011         | 0      |
-| S3            | 011    | 0     | S4         | 100         | 1      |
-| S3            | 011    | 1     | S1         | 001         | 0      |
-| S4 (Match)    | 100    | 0     | S0         | 000         | 0      |
-| S4 (Match)    | 100    | 1     | S1         | 001         | 0      |
+| S2            | 010    | 0     | S3         | 011         | 0      |
+| S2            | 010    | 1     | S1         | 001         | 0      |
+| S3            | 011    | 0     | S0         | 000         | 0      |
+| S3            | 011    | 1     | S4         | 100         | 0      |
+| S4            | 100    | 0     | S5         | 101         | 1      |
+| S4            | 100    | 1     | S1         | 001         | 0      |
+| S5 (Match)    | 101    | 0     | S0         | 000         | 0      |
+| S5 (Match)    | 101    | 1     | S1         | 001         | 0      |
 
 ## Key Details:
 - **Type**: Moore Machine (output depends only on current state)
-- **Sequence Detected**: 1010 (with overlapping sequences allowed)
-- **Output**: 
-  - 1 when reaching S4 (complete sequence detected)
-  - 0 for all other states
+- **Sequence Detected**: `10010` (non-overlapping by design)
+- **Output**:
+  - `1` only when reaching **S5** (complete sequence detected)
+  - `0` for all other states
 - **State Encoding**:
-  - S0: 000 (Reset/Initial state)
-  - S1: 001 ("1" detected)
-  - S2: 010 ("10" detected)
-  - S3: 011 ("101" detected)
-  - S4: 100 ("1010" detected, output=1)
+  - S0: `000` (Reset/Initial state)
+  - S1: `001` ("1" detected)
+  - S2: `010` ("10" detected)
+  - S3: `011` ("100" detected)
+  - S4: `100` ("1001" detected)
+  - S5: `101` ("10010" detected)
 
-## Notes:
-1. After a complete match (S4), the FSM can immediately begin detecting the next sequence
-2. The binary encoding matches the Verilog implementation in the repository
-3. Inputs are processed one bit per clock cycle
+## Other Information:
+1. **Strict sequencing**: Any deviation from `10010` resets progress (e.g., `10011` fails at the last bit).
+2. **3-bit state encoding**: Matches the Verilog implementation (`state[2:0]`).
